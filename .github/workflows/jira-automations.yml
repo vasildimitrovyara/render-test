@@ -39,6 +39,10 @@ jobs:
 #       ]
 
 # jobs:
+#   print: 
+#   steps:
+#     -name: Print to console
+#     run: echo Hello github actions
 #   add-render-link-to-issue:
 #     name: Add render link to issue
 #     # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
