@@ -34,6 +34,11 @@ jobs:
         description: Created automatically via GitHub Actions
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Comment on issue
+      uses: atlassian/gajira-comment@v3
+      with:
+      issue: INC-2
+      comment: ${{ github.event.pusher.name }} pushed to repository: ${{ github.event.repository.full_name }}
   add-render-link-to-issue:
     name: Add render link to issue
     if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
