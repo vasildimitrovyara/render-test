@@ -30,7 +30,7 @@ jobs:
       id: fc
       with:
         issue-number: 1
-        body-includes: search string 1
+        body-includes: search string Render
         direction: last
     # - name: Jira TODO
     #   uses: atlassian/gajira-todo@v3
