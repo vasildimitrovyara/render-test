@@ -8,10 +8,10 @@ on:
     types:
       [
         opened,
-        # closed,
-        # ready_for_review,
-        # review_requested,
-        # review_request_removed,
+        closed,
+        ready_for_review,
+        review_requested,
+        review_request_removed,
       ]
 
 jobs:
@@ -46,22 +46,12 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Find Comment
-          uses: peter-evans/find-comment@v2
-          id: fc
-          with:
-            issue-number: 1
-            body-includes: search string URL
-        - run: |
-            echo ${{ steps.fc.outputs.comment-id }}
-            echo ${{ steps.fc.outputs.comment-body }}
-            echo ${{ steps.fc.outputs.comment-author }}
-            echo ${{ steps.fc.outputs.comment-created-at }}
-          # - name: Find Comment
-      #   uses: peter-evans/find-comment@v2
-      #   id: fc
-      #   with:
-      #     issue-number: 101
-      #     body-includes: search string Render
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 101
+          body-includes: search string Render
+      - run: echo ${{github}}
     # - name: Get issue number
     # - run: |
     #   echo github.event.issue.number
