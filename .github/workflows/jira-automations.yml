@@ -68,11 +68,11 @@ jobs:
       #   uses: atlassian/gajira-find-issue-key@v3
       #   with:
       #     from: branch
-      # - name: Comment on issue
-      #   uses: atlassian/gajira-comment@v3
-      #   with:
-      #     issue: RT-1
-      #     comment: 'text'
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: RT-1
+          comment: ${{ github.event.pull_request.number }}
   # add-render-link-to-issue:
   #   name: Add render link to issue
   #   # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
