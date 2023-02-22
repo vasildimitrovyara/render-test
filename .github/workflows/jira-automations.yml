@@ -39,12 +39,12 @@ jobs:
       #     result-encoding: string
       # - name: Issue number
       #   run: echo '${{steps.get_issue_number.outputs.result}}'
-    # - name: Login
-    #   uses: atlassian/gajira-login@v3
-    #   env:
-    #     JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-    #     JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-    #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Login
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
     # - name: Find Comment
     #   uses: peter-evans/find-comment@v2
     #   id: fc
@@ -63,11 +63,11 @@ jobs:
     #     description: Created automatically via GitHub Actions
     #   env:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Comment on issue
-      uses: atlassian/gajira-comment@v3
-      with:
-        issue: $BITRISE_GIT_BRANCH
-        comment: 'text'
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: $BITRISE_GIT_BRANCH
+          comment: 'text'
   add-render-link-to-issue:
     name: Add render link to issue
     # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
