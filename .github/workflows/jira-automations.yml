@@ -72,7 +72,7 @@ jobs:
         uses: atlassian/gajira-comment@v3
         with:
           issue: RT-1
-          comment: ${{ github.event.pull_request.number }}
+          comment: ${{ github.event.pull_request.number }} ${{ steps.fc.outputs.comment-body }}
   # add-render-link-to-issue:
   #   name: Add render link to issue
   #   # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
