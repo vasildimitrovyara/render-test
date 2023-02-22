@@ -76,7 +76,7 @@ jobs:
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
-          issue: ${{ ${{ steps.number.outputs.issue }} }}
+          issue: ${{ steps.number.outputs.issue }}
           comment: ${{ github.event.pull_request.number }} ${{ steps.fc.outputs.comment-body }}
   # add-render-link-to-issue:
   #   name: Add render link to issue
