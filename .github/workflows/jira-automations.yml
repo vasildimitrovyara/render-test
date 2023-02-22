@@ -45,13 +45,12 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-    # - name: Find Comment
-    #   uses: peter-evans/find-comment@v2
-    #   id: fc
-    #   with:
-    #     issue-number: 1
-    #     body-includes: search string Render
-    #     direction: last
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 101
+          body-includes: search string Render
     # - name: Get issue number
     # - run: |
     #   echo github.event.issue.number
@@ -67,11 +66,11 @@ jobs:
         uses: atlassian/gajira-find-issue-key@v3
         with:
           from: branch
-      # - name: Comment on issue
-      #   uses: atlassian/gajira-comment@v3
-      #   with:
-      #     issue: $BITRISE_GIT_BRANCH
-      #     comment: 'text'
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: RT-1
+          comment: 'text'
   # add-render-link-to-issue:
   #   name: Add render link to issue
   #   # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
