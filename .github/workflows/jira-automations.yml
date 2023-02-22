@@ -19,22 +19,42 @@ jobs:
     runs-on: ubuntu-latest
     name: Jira Example
     steps:
-    - name: Login
-      uses: atlassian/gajira-login@v3
-      env:
-        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-    - name: Find Comment
-      uses: peter-evans/find-comment@v2
-      id: fc
-      with:
-        issue-number: 1
-        body-includes: search string Render
-        direction: last
-    - name: Get issue number
-    - run: |
-      echo github.event.issue.number
+      - uses: actions/github-script@v6
+        id: get_issue_number
+        with:
+          script: |
+            if (context.issue.number) {
+              // Return issue number if present
+              return context.issue.number;
+            } else {
+              // Otherwise return issue number from commit
+              return (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0].number;
+            }
+          result-encoding: string
+      - name: Issue number
+        run: echo '${{steps.get_issue_number.outputs.result}}'
+    # - name: Login
+    #   uses: atlassian/gajira-login@v3
+    #   env:
+    #     JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+    #     JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+    #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    # - name: Find Comment
+    #   uses: peter-evans/find-comment@v2
+    #   id: fc
+    #   with:
+    #     issue-number: 1
+    #     body-includes: search string Render
+    #     direction: last
+    # - name: Get issue number
+    # - run: |
+    #   echo github.event.issue.number
     # - name: Jira TODO
     #   uses: atlassian/gajira-todo@v3
     #   with:
