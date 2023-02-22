@@ -51,7 +51,7 @@ jobs:
         with:
           issue-number: 101
           body-includes: search string Render
-      - run: echo ${{github}}
+      - run: echo ${{toJson(github)}}
     # - name: Get issue number
     # - run: |
     #   echo github.event.issue.number
