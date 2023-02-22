@@ -68,10 +68,15 @@ jobs:
       #   uses: atlassian/gajira-find-issue-key@v3
       #   with:
       #     from: branch
+      - name: Find in commit messages
+        uses: atlassian/gajira-find-issue-key@v3
+        id: number
+        with:
+          from: branch
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
-          issue: ${{ github.event.issue.number }}
+          issue: ${{ ${{ steps.number.outputs.issue }} }}
           comment: ${{ github.event.pull_request.number }} ${{ steps.fc.outputs.comment-body }}
   # add-render-link-to-issue:
   #   name: Add render link to issue
