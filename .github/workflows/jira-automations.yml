@@ -46,12 +46,12 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Find Comment
-          uses: peter-evans/find-comment@v1
-          id: fc
-          with:
-            issue-number: ${{ github.event.pull_request.number }}
-            comment-author: 'render[bot]'
-            body-includes: Follow its progress at
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          comment-author: render[bot]
+          body-includes: Follow its progress at
 
     # - name: Get issue number
     # - run: |
