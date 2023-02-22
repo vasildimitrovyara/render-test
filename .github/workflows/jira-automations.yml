@@ -45,8 +45,8 @@ jobs:
       env:
         ISSUE_NUMBER: RT-1
       with:
-      issue: $ISSUE_NUMBER
-      comment: $ISSUE_NUMBER
+        issue: $ISSUE_NUMBER
+        comment: $ISSUE_NUMBER
   add-render-link-to-issue:
     name: Add render link to issue
     # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
