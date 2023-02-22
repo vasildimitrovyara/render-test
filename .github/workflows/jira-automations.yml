@@ -66,7 +66,7 @@ jobs:
       - name: Find in commit messages
         uses: atlassian/gajira-find-issue-key@v3
         with:
-          string: ${{ github.event.ref }}
+          from: branch
       # - name: Comment on issue
       #   uses: atlassian/gajira-comment@v3
       #   with:
