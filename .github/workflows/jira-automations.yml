@@ -49,7 +49,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{steps.get_issue_number.outputs.result}}
           comment-author: render[bot]
           body-includes: Follow its progress at
 
