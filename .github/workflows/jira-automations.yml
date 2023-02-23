@@ -8,10 +8,10 @@ on:
     types:
       [
         opened,
-        closed,
+        # closed,
         ready_for_review,
-        review_requested,
-        review_request_removed,
+        # review_requested,
+        # review_request_removed,
       ]
 
 jobs:
