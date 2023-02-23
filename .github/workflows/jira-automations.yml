@@ -17,7 +17,7 @@ on:
 jobs:
   build:
     name: Add render link to Jira issue
-    if: github.event.issue.pull_request
+    # if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       # https://github.com/marketplace/actions/jira-login
