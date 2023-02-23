@@ -16,11 +16,10 @@ on:
 
 jobs:
   build:
-    name: Add render link to Jira issue
-    if: github.event.issue.pull_request && contains(github.event.comment.body, 'render')
     runs-on: ubuntu-latest
+    name: Add render link to Jira issue
     steps:
-      # https://github.com/marketplace/actions/jira-login
+      # https://github.com/marketplace/actions/jira-login  
       - name: Login
         uses: atlassian/gajira-login@v3
         env:
