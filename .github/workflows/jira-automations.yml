@@ -34,13 +34,18 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
           body-includes: Follow its progress at
-      - name: Find in commit messages
-        uses: atlassian/gajira-find-issue-key@v3
-        id: get_issue_number
-        with:
-          from: branch
+      - name: Get Jira keys
+        id: getJiraKeys
+        uses: ejnkr/get-jira-keys-from-pr@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Find in commit messages
+      #   uses: atlassian/gajira-find-issue-key@v3
+      #   id: get_issue_number
+      #   with:
+      #     from: branch
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
-          issue: RT-1
+          issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{steps.get_issue_number.outputs.result}} ${{ steps.fc.outputs.comment-body }}
