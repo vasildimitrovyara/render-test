@@ -1,4 +1,4 @@
-name: Jira Automations
+name: Add render link
 
 on:
   issue_comment:
@@ -42,5 +42,5 @@ jobs:
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
-          issue: ${{steps.get_issue_number.outputs.result}}
+          issue: RT-1
           comment: ${{steps.get_issue_number.outputs.result}} ${{ steps.fc.outputs.comment-body }}
