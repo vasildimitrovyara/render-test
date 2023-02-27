@@ -35,19 +35,16 @@ jobs:
       - name: Get Jira keys
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
-        env:
-          COMMENT: ${{ steps.findCommit.outputs.comment-body }}
       # https://github.com/marketplace/actions/jira-login
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
-        env:
-           COMMENT: ${{ steps.findCommit.outputs.comment-body }}
         with:
           script: |
             const path = require('path');
+            const comment = ${{ steps.findCommit.outputs.comment-body }}
 
             return require(path.resolve('.github/scripts/formatRenderComment.js'))(
-              $COMMENT
+              comment
             );
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
