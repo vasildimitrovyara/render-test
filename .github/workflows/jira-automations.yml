@@ -22,23 +22,12 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       # https://github.com/marketplace/actions/jira-login
+      - uses: actions/checkout@v3
       - uses: actions/github-script@v6
-        id: set-result
         with:
           script: |
-            const comment = ${{ steps.findCommit.outputs.comment-body }}
-            const urlRegex = /(https?:\/\/[^\s]+)/g
-            const urls = comment.match(urlRegex)        
-            const hasMatchingUrls = urls && urls.length
-
-            if (!hasMatchingUrls) return null
-            const renderUrl = urls.find((url) => url.includes('onrender.com'))
-        
-            if (!renderUrl) return null
-            if (renderUrl[renderUrl.length - 1] === '.') {
-              return renderUrl.slice(0, -1)
-            }
-            return renderUrl
+            const script = require('./github/formatRenderComment.js')
+            console.log(script({github, context}))
           result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
