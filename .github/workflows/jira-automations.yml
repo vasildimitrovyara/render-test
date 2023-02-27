@@ -7,18 +7,16 @@ on:
   pull_request:
     types:
       [
-        opened,
-        # closed,
-        ready_for_review,
+        # opened,
+        closed,
+        # ready_for_review,
         # review_requested,
         # review_request_removed,
       ]
-
 jobs:
   build:
-    name: Add render link to Jira issue
-    if: github.event.issue.pull_request && contains(github.event.comment.body, 'Follow its progress at')
     runs-on: ubuntu-latest
+    name: Add render link to Jira issue
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
