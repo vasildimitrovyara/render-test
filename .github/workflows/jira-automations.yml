@@ -21,16 +21,8 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      # https://github.com/marketplace/actions/find-comment
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: findCommit
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: render[bot]
-          body-includes: Follow its progress at
       - name: Format Link
-      - uses: actions/github-script@v6
+        uses: actions/github-script@v6
         with:
           script: |
             github.rest.issues.createComment({
@@ -39,6 +31,14 @@ jobs:
               repo: context.repo.repo,
               body: '👋 Thanks for reporting!'
             })
+      # https://github.com/marketplace/actions/find-comment
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: findCommit
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: render[bot]
+          body-includes: Follow its progress at
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
