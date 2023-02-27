@@ -21,10 +21,14 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      # https://github.com/marketplace/actions/jira-login
       - uses: actions/github-script@v6
         id: set-result
         with:
-          script: return "Hello!"
+          script: |
+            const path = require('path');
+
+            return require(path.resolve('.github/scripts/formatRenderComment.js'))('ASD');
           result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
