@@ -29,6 +29,18 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
           body-includes: Follow its progress at
+      - name: Find Comment
+        uses: actions/checkout@v2
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const path = require('path');
+
+            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+              ${{ steps.findCommit.outputs.comment-body }},
+              actionName: 'prMerged'
+            });
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
