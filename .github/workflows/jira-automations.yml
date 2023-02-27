@@ -1,4 +1,4 @@
-name: Add render link
+name: Add render link 
 
 on:
   issue_comment:
@@ -7,11 +7,7 @@ on:
   pull_request:
     types:
       [
-        # opened,
         closed,
-        # ready_for_review,
-        # review_requested,
-        # review_request_removed,
       ]
 jobs:
   build:
@@ -25,6 +21,16 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Format Link
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for reporting!'
+            })
       # https://github.com/marketplace/actions/find-comment
       - name: Find Comment
         uses: peter-evans/find-comment@v2
