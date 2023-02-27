@@ -26,7 +26,9 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const script = require('./scripts/formatRenderComment.js')
+            const path = require('path');
+
+            const script = require(path.resolve('./github/scripts/formatRenderComment.js'))
             console.log(script({github, context}))
           result-encoding: string
       - name: Get result
