@@ -28,8 +28,9 @@ jobs:
           script: |
             const path = require('path');
 
-            const script = require(path.resolve('.github/scripts/formatRenderComment.js'))
-            console.log(script({github, context}))
+            const script = require(path.resolve('.github/scripts/formatRenderComment.js'))(
+              ${{ steps.findCommit.outputs.comment-body }}
+            )
           result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
