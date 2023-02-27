@@ -30,15 +30,15 @@ jobs:
           comment-author: render[bot]
           body-includes: Follow its progress at
       - name: Format Link
-        uses: actions/github-script@v4
+      - uses: actions/github-script@v6
         with:
           script: |
-            const path = require('path');
-
-            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              ${{ steps.findCommit.outputs.comment-body }},
-              actionName: 'prMerged'
-            });
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for reporting!'
+            })
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
