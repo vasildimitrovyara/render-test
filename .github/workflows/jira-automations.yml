@@ -30,9 +30,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
-          body-includes: Follow its progress at
-          env:
-           COMMENT: 'Some comment' 
+          body-includes: Follow its progress at 
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
@@ -42,6 +40,8 @@ jobs:
       # https://github.com/marketplace/actions/jira-login
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
+        env:
+           COMMENT: ${{ steps.findCommit.outputs.comment-body }}
         with:
           script: |
             const path = require('path');
