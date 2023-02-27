@@ -1,17 +1,12 @@
-name: Add render link
+name: Add render link 
 
 on:
+  # pull_request:
+  #   types:
+  #     - opened
   issue_comment:
-    types: [created]
-  pull_request_review:
-  pull_request:
     types:
-      [
-        # opened,
-        closed,
-        # ready_for_review,
-        # review_requested,
-      ]
+      - created
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,19 +33,6 @@ jobs:
         uses: ejnkr/get-jira-keys-from-pr@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Format comment
-        id: formatComment
-        steps:
-          - uses: actions/checkout@v2
-          - uses: actions/github-script@v4
-            with:
-              github-token: ${{secrets.GITHUB_TOKEN}}
-              script: |
-                const path = require('path');
-
-                return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-                  steps.findCommit.outputs.comment-body
-                });
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
