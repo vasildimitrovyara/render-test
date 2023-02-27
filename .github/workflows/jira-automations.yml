@@ -1,46 +1,59 @@
-# name: Add render link
+name: Add render link
 
-# on:
-#   issue_comment:
-#     types: [created]
-#   pull_request_review:
-#   pull_request:
-#     types:
-#       [
-#         # opened,
-#         closed,
-#         # ready_for_review,
-#         # review_requested,
-#       ]
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     name: Add render link to Jira issue
-#     steps:
-#       # https://github.com/marketplace/actions/jira-login
-#       - name: Login
-#         uses: atlassian/gajira-login@v3
-#         env:
-#           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-#           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-#           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-#       # https://github.com/marketplace/actions/find-comment
-#       - name: Find Comment
-#         uses: peter-evans/find-comment@v2
-#         id: findCommit
-#         with:
-#           issue-number: ${{ github.event.pull_request.number }}
-#           comment-author: render[bot]
-#           body-includes: Follow its progress at
-#       # https://github.com/ejnkr/get-jira-keys-from-pr
-#       - name: Get Jira keys
-#         id: getJiraKeys
-#         uses: ejnkr/get-jira-keys-from-pr@main
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#       # https://github.com/marketplace/actions/jira-add-comment
-#       - name: Comment on issue
-#         uses: atlassian/gajira-comment@v3
-#         with:
-#           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-#           comment: ${{ steps.findCommit.outputs.comment-body }}
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review:
+  pull_request:
+    types:
+      [
+        # opened,
+        closed,
+        # ready_for_review,
+        # review_requested,
+      ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Add render link to Jira issue
+    steps:
+      # https://github.com/marketplace/actions/jira-login
+      - name: Login
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      # https://github.com/marketplace/actions/find-comment
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: findCommit
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: render[bot]
+          body-includes: Follow its progress at
+      # https://github.com/ejnkr/get-jira-keys-from-pr
+      - name: Get Jira keys
+        id: getJiraKeys
+        uses: ejnkr/get-jira-keys-from-pr@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Jira keys
+        id: formatComment
+        steps:
+          - uses: actions/checkout@v2
+          - uses: actions/github-script@v4
+            with:
+              github-token: ${{secrets.GITHUB_TOKEN}}
+              script: |
+                const path = require('path');
+
+                return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+                  steps.findCommit.outputs.comment-body
+                });
+      # https://github.com/marketplace/actions/jira-add-comment
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
+          comment: ${{ steps.findCommit.outputs.comment-body }}
