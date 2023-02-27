@@ -30,8 +30,8 @@ jobs:
           comment-author: render[bot]
           body-includes: Follow its progress at
       - name: Format Link
-        uses: actions/checkout@v2
-        uses: actions/github-script@v4
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v4
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
