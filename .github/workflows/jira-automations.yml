@@ -40,12 +40,14 @@ jobs:
       # https://github.com/marketplace/actions/jira-login
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
+        env:
+          COMMENT: ${{ steps.findCommit.outputs.comment-body }}
         with:
           script: |
             const path = require('path');
 
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              ${{ steps.findCommit.outputs.comment-body }}
+              COMMENT
             });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
