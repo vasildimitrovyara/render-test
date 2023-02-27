@@ -38,7 +38,7 @@ jobs:
         uses: ejnkr/get-jira-keys-from-pr@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Get Jira keys
+      - name: Format comment
         id: formatComment
         steps:
           - uses: actions/checkout@v2
