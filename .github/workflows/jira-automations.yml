@@ -29,7 +29,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
           body-includes: Follow its progress at
-      - name: Find Comment
+      - name: Format Link
         uses: actions/checkout@v2
         uses: actions/github-script@v4
         with:
