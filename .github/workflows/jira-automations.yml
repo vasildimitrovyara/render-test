@@ -45,7 +45,7 @@ jobs:
             const path = require('path');
 
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              COMMENT
+              'Some text'
             });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
