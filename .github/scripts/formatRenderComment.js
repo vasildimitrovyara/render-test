@@ -1,4 +1,5 @@
 module.exports = (comment) => {
+    console.log(comment);
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urls = comment.match(urlRegex);
   
