@@ -44,9 +44,9 @@ jobs:
           script: |
             const path = require('path');
 
-            return require(path.resolve('.github/scripts/formatRenderComment.js'))(
-              ${{ steps.findCommit.outputs.comment-body }}
-            );
+            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+              comment: steps.findCommit.outputs.comment-body
+            });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
