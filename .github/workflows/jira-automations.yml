@@ -36,12 +36,10 @@ jobs:
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMENT: ${{ steps.findCommit.outputs.comment-body }}
       # https://github.com/marketplace/actions/jira-login
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
-        env:
-          COMMENT: ${{ steps.findCommit.outputs.comment-body }}
         with:
           script: |
             const path = require('path');
