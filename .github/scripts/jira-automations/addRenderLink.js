@@ -1,7 +1,7 @@
 const Utils = require('../utils/utils');
 
 module.exports = ({ github, context, actionName }) => {
-    const branchName = new Utils.findBranchThroughPR({        
+    const branchName = new Utils().findBranchThroughPR({        
         github,
         repo: context.payload.repository.name,
         owner: context.payload.repository.owner.login,
