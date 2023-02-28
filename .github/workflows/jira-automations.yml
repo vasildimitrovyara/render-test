@@ -63,11 +63,11 @@ on:
   pull_request:
     types:
       [
-        # opened,
+        opened,
         closed,
-        # ready_for_review,
-        # review_requested,
-        # review_request_removed,
+        ready_for_review,
+        review_requested,
+        review_request_removed,
       ]
 
 jobs:
