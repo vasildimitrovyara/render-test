@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Add render link to Jira issue
-    if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
+    if: github.event.pull_request.merged
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
@@ -26,12 +26,11 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
       # https://github.com/marketplace/actions/find-comment
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: findCommit
+        timeout-minutes: 3000
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
@@ -41,6 +40,7 @@ jobs:
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
       # https://github.com/marketplace/actions/jira-login
+      - name: Format comment
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
         with:
@@ -48,7 +48,7 @@ jobs:
             const path = require('path');
 
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              comment: 'renderLinkComment',
+              comment: ${{ steps.findCommit.outputs.comment-body }}
             });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
@@ -57,41 +57,3 @@ jobs:
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{ steps.findCommit.outputs.comment-body }}
-# name: Jira Automations
-
-# on:
-#   issue_comment:
-#     types: [created]
-#   pull_request_review:
-#   pull_request:
-#     types:
-#       [
-#         opened,
-#         closed,
-#         ready_for_review,
-#         review_requested,
-#         review_request_removed,
-#       ]
-
-# jobs:
-#   add-render-link-to-issue:
-#     name: Add render link to issue
-#     if: github.event.issue.pull_request != '' 
-# && contains(github.event.comment.user.login, 'render[bot]')
-#     runs-on: ubuntu-latest
-#     env:
-#       JIRA_AUTOMATION_USER: ${{secrets.JIRA_AUTOMATION_USER}}
-#       JIRA_AUTOMATION_TOKEN: ${{secrets.JIRA_AUTOMATION_TOKEN}}
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/github-script@v4
-#         with:
-#           github-token: ${{secrets.GITHUB_TOKEN}}
-#           script: |
-#             const path = require('path');
-
-#             return require(path.resolve('.github/scripts/jira-automations/actionComment.js'))({
-#               github,
-#               context,
-#               actionName: 'renderLinkComment',
-#             });
