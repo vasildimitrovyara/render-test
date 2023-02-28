@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Add render link to Jira issue
-    # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
