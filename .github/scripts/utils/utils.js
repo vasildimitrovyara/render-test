@@ -1,5 +1,5 @@
 module.exports = () => {
-    extractIssueNumberFromUrl: async(url = '') => {
+    this.extractIssueNumberFromUrl = async(url = '') => {
         const split = url.split('/');
 
         if (!split.length) {
@@ -14,7 +14,7 @@ module.exports = () => {
       
         return lastElement;
     },
-    fetchPullRequest: async({ github, owner, repo, issueNumber }) => {
+    this.fetchPullRequest = async({ github, owner, repo, issueNumber }) => {
         try {
             const { data } = await github.request(
               `GET /repos/${owner}/${repo}/pulls/${issueNumber}`,
@@ -25,7 +25,7 @@ module.exports = () => {
             return null;
           }
     },
-    findBranchThroughPR: async({ github, owner, repo, issueNumber }) => {
+    this.findBranchThroughPR = async({ github, owner, repo, issueNumber }) => {
         try {
         const pullRequestDetails = await fetchPullRequest({
             github,
