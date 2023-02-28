@@ -41,7 +41,7 @@ jobs:
       - name: Get Jira keys
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
-      # https://github.com/marketplace/actions/jira-login
+      # https://github.com/marketplace/actions/jira-login 
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
         id: format
@@ -56,11 +56,11 @@ jobs:
             });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
-      - name: Comment on issue
-        uses: atlassian/gajira-comment@v3
-        with:
-          issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.format.outputs.result }}
+      # - name: Comment on issue
+      #   uses: atlassian/gajira-comment@v3
+      #   with:
+      #     issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
+      #     comment: ${{ steps.format.outputs.result }}
 
 
 
