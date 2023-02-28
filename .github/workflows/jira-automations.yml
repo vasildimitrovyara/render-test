@@ -46,7 +46,7 @@ jobs:
               github,
               context,
               actionName: 'renderLinkComment',
-            });
+            }); 
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
