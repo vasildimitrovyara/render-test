@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Add render link to Jira issue
-    if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
+    if: github.event.pull_request.merged
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
@@ -28,7 +28,6 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       # https://github.com/marketplace/actions/find-comment
       - name: Find Comment
-        if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
         uses: peter-evans/find-comment@v2
         id: findCommit
         timeout-minutes: 3000
