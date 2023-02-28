@@ -1,7 +1,5 @@
 module.exports = ({context}) => {
-    const comment = context.payload.body;
-    console.log(comment);
-    console.log(context.payload.comment.body);
+    const comment = context.payload.comment.body;
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urls = comment.match(urlRegex);
   
