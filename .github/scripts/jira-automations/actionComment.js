@@ -16,14 +16,15 @@ module.exports = async ({ github, context, actionName }) => {
       if (!comment || !comment.body) {
         throw new Error('Comment missing');
       }
-   
-      await executeTeamAction({
-        actionName,
-        github,
-        context,
-        branchName,
-        comment,
-      });
+      
+      console.log(comment);
+      // await executeTeamAction({
+      //   actionName,
+      //   github,
+      //   context,
+      //   branchName,
+      //   comment,
+      // });
     } catch (e) {
       console.error(e);
     }
