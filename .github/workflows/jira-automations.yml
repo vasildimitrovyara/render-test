@@ -21,16 +21,6 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      # https://github.com/marketplace/actions/jira-login
-      - uses: actions/checkout@v3
-      - uses: actions/github-script@v6
-        with:
-          script: |
-            const path = require('path');
-
-            const script = require(path.resolve('./github/scripts/formatRenderComment.js'))
-            console.log(script({github, context}))
-          result-encoding: string
       - name: Get result
         run: echo "${{steps.set-result.outputs.result}}"
       # https://github.com/marketplace/actions/find-comment
@@ -40,16 +30,28 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
-          body-includes: Follow its progress at
+          body-includes: Follow its progress at 
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # https://github.com/marketplace/actions/jira-login
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const path = require('path');
+
+            return require(path.resolve('.github/scripts/jira-automations/addRenderLink.js'))({
+              github,
+              context,
+              actionName: 'renderLinkComment',
+            });
+          result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{ steps.findCommit.outputs.comment-body }}
+          
