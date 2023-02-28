@@ -1,4 +1,4 @@
-const Utils = () => {
+module.exports = () => {
     this.extractIssueNumberFromUrl = async(url = '') => {
         const split = url.split('/');
 
@@ -13,7 +13,7 @@ const Utils = () => {
         }
       
         return lastElement;
-    }
+    },
     this.fetchPullRequest = async({ github, owner, repo, issueNumber }) => {
         try {
             const { data } = await github.request(
@@ -24,7 +24,7 @@ const Utils = () => {
           } catch (error) {
             return null;
           }
-    }
+    },
     this.findBranchThroughPR = async({ github, owner, repo, issueNumber }) => {
         try {
         const pullRequestDetails = await fetchPullRequest({
@@ -40,5 +40,3 @@ const Utils = () => {
         }
     }
 }
-
-module.exports = new Utils();

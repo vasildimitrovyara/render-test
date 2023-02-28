@@ -1,6 +1,6 @@
 const Utils = require('../utils/utils');
 
-const AddRenderLink = ({ github, context, actionName }) => {
+module.exports = ({ github, context, actionName }) => {
     const branchName = Utils.findBranchThroughPR({        
         github,
         repo: context.payload.repository.name,
@@ -13,5 +13,3 @@ const AddRenderLink = ({ github, context, actionName }) => {
       throw new Error('Comment missing');
     }
 }
-
-module.exports = new AddRenderLink();
