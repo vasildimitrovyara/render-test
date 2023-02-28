@@ -27,8 +27,6 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: Get result
-        run: echo "${{steps.set-result.outputs.result}}"
       # https://github.com/marketplace/actions/find-comment
       # - name: Find Comment
       #   uses: peter-evans/find-comment@v2
@@ -58,59 +56,3 @@ jobs:
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{ steps.format.outputs.result }}
-# name: Add render link 
-
-# on:
-#   issue_comment:
-#     types: [created]
-#   pull_request_review:
-#   pull_request:
-#     types:
-#       [
-#         closed
-#       ]
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     name: Add render link to Jira issue
-#     steps:
-#       # https://github.com/marketplace/actions/jira-login
-#       - name: Login
-#         uses: atlassian/gajira-login@v3
-#         env:
-#           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-#           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-#           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-#       - name: Get result
-#         run: echo "${{steps.set-result.outputs.result}}"
-#       # https://github.com/marketplace/actions/find-comment
-#       - name: Find Comment
-#         uses: peter-evans/find-comment@v2
-#         id: findCommit
-#         with:
-#           issue-number: ${{ github.event.pull_request.number }}
-#           comment-author: render[bot]
-#           body-includes: Follow its progress at 
-#       # https://github.com/ejnkr/get-jira-keys-from-pr
-#       - name: Get Jira keys
-#         id: getJiraKeys
-#         uses: ejnkr/get-jira-keys-from-pr@main
-#       # https://github.com/marketplace/actions/jira-login
-#       - uses: actions/checkout@v3
-#       - uses: actions/github-script@v6
-#         with:
-#           script: |
-#             const path = require('path');
-#             const comment = ${{ steps.findCommit.outputs.comment-body }}
-
-#             console.log(comment);
-#             return require(path.resolve('.github/scripts/formatRenderComment.js'))(
-#               comment
-#             );
-#           result-encoding: string
-#       # https://github.com/marketplace/actions/jira-add-comment
-#       - name: Comment on issue
-#         uses: atlassian/gajira-comment@v3
-#         with:
-#           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-#           comment: ${{ steps.findCommit.outputs.comment-body }}
