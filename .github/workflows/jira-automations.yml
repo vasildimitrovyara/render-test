@@ -63,17 +63,17 @@ on:
   pull_request:
     types:
       [
-        opened,
+        # opened,
         closed,
-        ready_for_review,
-        review_requested,
-        review_request_removed,
+        # ready_for_review,
+        # review_requested,
+        # review_request_removed,
       ]
 
 jobs:
   add-render-link-to-issue:
     name: Add render link to issue
-    if: github.event.issue.pull_request != '' 
+    # if: github.event.issue.pull_request != '' 
     # && contains(github.event.comment.user.login, 'render[bot]')
     runs-on: ubuntu-latest
     env:
