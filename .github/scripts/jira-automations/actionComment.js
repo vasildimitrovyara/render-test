@@ -1,30 +1,15 @@
-const executeTeamAction = require('./utils/executeTeamAction');
-const findBranchThroughPR = require('../utils/findBranchThroughPR');
+const addRenderLink = require('../commands/addRenderLink.js');
 
-module.exports = async ({ github, context, actionName }) => {
+module.exports = async ({ context }) => {
   setTimeout(async () => {
     try {
-      const branchName = 'RT-1-some-text';
-      // await findBranchThroughPR({
-      //   github,
-      //   repo: context.payload.repository.name,
-      //   owner: context.payload.repository.owner.login,
-      //   issueNumber: context.payload.number,
-      // });
-  
       const { comment } = context.payload;
       if (!comment || !comment.body) {
         throw new Error('Comment missing');
+      } else {
+        await addRenderLink('RT-1', comment.body);
       }
       
-      console.log(comment);
-      // await executeTeamAction({
-      //   actionName,
-      //   github,
-      //   context,
-      //   branchName,
-      //   comment,
-      // });
     } catch (e) {
       console.error(e);
     }
