@@ -41,12 +41,12 @@ jobs:
         with:
           script: |
             const path = require('path');
-            const comment = ${{ steps.findCommit.outputs.comment-body }}
 
-            console.log(comment);
-            return require(path.resolve('.github/scripts/formatRenderComment.js'))(
-              comment
-            );
+            return require(path.resolve('.github/scripts/jira-automations/addRenderLink.js'))({
+              github,
+              context,
+              actionName: 'renderLinkComment',
+            });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
@@ -54,3 +54,4 @@ jobs:
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{ steps.findCommit.outputs.comment-body }}
+          
