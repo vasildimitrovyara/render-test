@@ -13,3 +13,4 @@ module.exports = ({ github, context, actionName }) => {
       throw new Error('Comment missing');
     }
 }
+
