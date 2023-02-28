@@ -11,6 +11,6 @@ module.exports = ({context}) => {
     if (!renderUrl) return null;
     if (renderUrl[renderUrl.length - 1] === '.') {
       return renderUrl.slice(0, -1);
-    }
+    } 
     return renderUrl;
   };
