@@ -7,7 +7,7 @@ module.exports = async ({ context }) => {
       if (!comment || !comment.body) {
         throw new Error('Comment missing');
       } else {
-        const renderLinkComment = addRenderLink('RT-1', comment.body);
+        await addRenderLink('RT-1', comment.body);
       }
       
     } catch (e) {
