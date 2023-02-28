@@ -45,7 +45,7 @@ jobs:
       - name: Format comment
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
-        id: format
+        # id: format
         with:
           script: |
             const path = require('path');
@@ -61,7 +61,8 @@ jobs:
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.format.outputs.result }}
+          comment: 'ASD'
+          # ${{ steps.format.outputs.result }}
 
 
 
