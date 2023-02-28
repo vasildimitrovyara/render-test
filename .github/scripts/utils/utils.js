@@ -1,4 +1,4 @@
-const Utils = {
+module.exports = () => {
     extractIssueNumberFromUrl: async(url = '') => {
         const split = url.split('/');
 
@@ -40,5 +40,3 @@ const Utils = {
         }
     }
 }
-
-module.exports = Utils;
