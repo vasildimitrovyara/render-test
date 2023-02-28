@@ -17,6 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Add render link to Jira issue
+    # if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
@@ -39,11 +40,10 @@ jobs:
       - name: Get Jira keys
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
-      # https://github.com/marketplace/actions/jira-login 
+      # https://github.com/marketplace/actions/jira-login
       - name: Format comment
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
-        id: formatComment
         with:
           script: |
             const path = require('path');
@@ -57,4 +57,4 @@ jobs:
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.formatComment.outputs.result }}
+          comment: ${{ steps.findCommit.outputs.comment-body }}
