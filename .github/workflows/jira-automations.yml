@@ -48,9 +48,6 @@ jobs:
         with:
           script: |
             const path = require('path');
-            const comment = ${{ steps.findCommit.outputs.comment-body }}
-
-            console.log(comment);
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
               context
             });
