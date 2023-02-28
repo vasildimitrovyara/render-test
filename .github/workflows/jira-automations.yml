@@ -57,4 +57,7 @@ jobs:
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.findCommit.outputs.comment-body }}
+          comment: |             
+            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+              comment: ${{ steps.findCommit.outputs.comment-body }}
+            });
