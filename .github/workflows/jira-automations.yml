@@ -41,6 +41,7 @@ jobs:
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
       # https://github.com/marketplace/actions/jira-login
+      - name: Format comment
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
         with:
@@ -48,7 +49,7 @@ jobs:
             const path = require('path');
 
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              comment: 'renderLinkComment',
+              comment: ${{ steps.findCommit.outputs.comment-body }}
             });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
