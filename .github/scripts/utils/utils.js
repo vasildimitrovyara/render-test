@@ -1,5 +1,5 @@
-const Utils = () => {
-    this.extractIssueNumberFromUrl = async(url = '') => {
+const Utils = {
+    extractIssueNumberFromUrl: async(url = '') => {
         const split = url.split('/');
 
         if (!split.length) {
@@ -13,8 +13,8 @@ const Utils = () => {
         }
       
         return lastElement;
-    }
-    this.fetchPullRequest = async({ github, owner, repo, issueNumber }) => {
+    },
+    fetchPullRequest: async({ github, owner, repo, issueNumber }) => {
         try {
             const { data } = await github.request(
               `GET /repos/${owner}/${repo}/pulls/${issueNumber}`,
@@ -24,8 +24,8 @@ const Utils = () => {
           } catch (error) {
             return null;
           }
-    }
-    this.findBranchThroughPR = async({ github, owner, repo, issueNumber }) => {
+    },
+    findBranchThroughPR: async({ github, owner, repo, issueNumber }) => {
         try {
         const pullRequestDetails = await fetchPullRequest({
             github,
