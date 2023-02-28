@@ -31,7 +31,7 @@ jobs:
         if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
         uses: peter-evans/find-comment@v2
         id: findCommit
-        timeout-minutes: 30
+        timeout-minutes: 3000
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
