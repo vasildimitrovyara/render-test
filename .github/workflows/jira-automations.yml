@@ -58,7 +58,6 @@ jobs:
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
           comment: ${{ steps.format.outputs.result }}
-
 # name: Add render link 
 
 # on:

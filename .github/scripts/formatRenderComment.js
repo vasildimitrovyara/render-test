@@ -10,9 +10,10 @@ module.exports = ({context}) => {
     const renderUrl = urls.find((url) => url.includes('onrender.com'));
   
     if (!renderUrl) return null;
-    if (renderUrl[renderUrl.length - 1] === '.') {
-      return renderUrl.slice(0, -1);
-    } 
-    if (renderUrl) jiraComment = `Render link: ${renderUrl}`;
+    else {
+      const strippedLink = renderUrl.replace(`-pr-${context.issue.number}`,'');
+      
+      jiraComment = `Render link: ${strippedLink}`;
+    }
     return jiraComment;
   };
