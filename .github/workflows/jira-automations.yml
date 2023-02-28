@@ -19,20 +19,17 @@ jobs:
     name: Add render link to issue
     if: github.event.issue.pull_request != '' && contains(github.event.comment.user.login, 'render[bot]')
     runs-on: ubuntu-latest
-    env:
-      JIRA_AUTOMATION_USER: ${{secrets.JIRA_AUTOMATION_USER}}
-      JIRA_AUTOMATION_TOKEN: ${{secrets.JIRA_AUTOMATION_TOKEN}}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/github-script@v4
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const path = require('path');
+    # steps:
+    #   - uses: actions/checkout@v2
+    #   - uses: actions/github-script@v4
+    #     with:
+    #       github-token: ${{secrets.GITHUB_TOKEN}}
+    #       script: |
+    #         const path = require('path');
 
-            return require(path.resolve('.github/scripts/jira-automations/actionComment.js'))({
-              context
-            });
+    #         return require(path.resolve('.github/scripts/jira-automations/actionComment.js'))({
+    #           context
+    #         });
       # https://github.com/marketplace/actions/jira-login
       - name: Login
         uses: atlassian/gajira-login@v3
@@ -55,24 +52,26 @@ jobs:
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
       # https://github.com/marketplace/actions/jira-login
-      - uses: actions/checkout@v3
-      - uses: actions/github-script@v6
+      - name: Format comment
+        uses: actions/checkout@v3
+        uses: actions/github-script@v6
+        id: format
         with:
           script: |
             const path = require('path');
             const comment = ${{ steps.findCommit.outputs.comment-body }}
 
             console.log(comment);
-            return require(path.resolve('.github/scripts/formatRenderComment.js'))(
-              comment
-            );
+            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+              context
+            });
           result-encoding: string
       # https://github.com/marketplace/actions/jira-add-comment
       - name: Comment on issue
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.findCommit.outputs.comment-body }}
+          comment: ${{ steps.format.outputs.result }}
 
 
 
