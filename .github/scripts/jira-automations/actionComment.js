@@ -1,4 +1,4 @@
-const addRenderLink = require('../commands/addRenderLink.js');
+const addRenderLink = require('./commands/addRenderLink.js');
 
 module.exports = async ({ context }) => {
   setTimeout(async () => {
