@@ -9,10 +9,8 @@ module.exports = ({comment}) => {
     const renderUrl = urls.find((url) => url.includes('onrender.com'));
   
     if (!renderUrl) return null;
-  
     if (renderUrl[renderUrl.length - 1] === '.') {
       return renderUrl.slice(0, -1);
     }
-  
     return renderUrl;
   };
