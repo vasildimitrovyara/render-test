@@ -12,6 +12,6 @@ module.exports = async ({ context }) => {
       
     } catch (e) {
       console.error(e);
-    }
+    }  
   }, 30000)
 };

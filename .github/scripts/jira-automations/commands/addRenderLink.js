@@ -14,6 +14,7 @@ const extractRenderLink = (comment) => {
   if (renderUrl[renderUrl.length - 1] === '.') {
     return renderUrl.slice(0, -1);
   }
+  console.log(renderUrl)
 
   return renderUrl;
 };
@@ -49,6 +50,7 @@ const addRenderLinkCommentToTicket = async ({ renderLink, ticketId }) => {
       ],
     },
   };
+  console.log(bodyData)
 
   await addCommentToTicket({
     ticketId,
