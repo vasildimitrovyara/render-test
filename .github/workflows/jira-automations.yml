@@ -51,7 +51,7 @@ jobs:
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
               context
             });
-          result-encoding: string
+          result-encoding: string 
       # https://github.com/marketplace/actions/jira-add-comment
       # - name: Comment on issue
       #   uses: atlassian/gajira-comment@v3
