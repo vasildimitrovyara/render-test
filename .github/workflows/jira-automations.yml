@@ -17,7 +17,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Add render link to Jira issue
-    if: github.event.pull_request.merged
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
@@ -26,11 +25,12 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Get result
+        run: echo "${{steps.set-result.outputs.result}}"
       # https://github.com/marketplace/actions/find-comment
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: findCommit
-        timeout-minutes: 3000
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: render[bot]
@@ -43,6 +43,7 @@ jobs:
       - name: Format comment
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
+        id: a
         with:
           script: |
             const path = require('path');
@@ -56,4 +57,4 @@ jobs:
         uses: atlassian/gajira-comment@v3
         with:
           issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-          comment: ${{ steps.findCommit.outputs.comment-body }}
+          comment: ${{ steps.a.outputs.result }}
