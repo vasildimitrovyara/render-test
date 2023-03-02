@@ -1,6 +1,6 @@
 const addCommentToTicket = require('./addCommentToTicket');
 
-module.exports = async ({ticketId, context}) => {
+module.exports = async ({context}) => {
     const comment = context.payload.comment.body;
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urls = comment.match(urlRegex);
