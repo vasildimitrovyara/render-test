@@ -6,6 +6,7 @@ module.exports = ({context}) => {
     const renderUrl = urls?.find((url) => url?.includes('onrender.com'));
     let jiraComment = '';
 
+    
     if (!hasMatchingUrls) return null;
     if (renderUrl) {
       const strippedLink = renderUrl.replace(`-pr-${context.issue.number}`,'');
