@@ -1,4 +1,6 @@
-module.exports = ({context}) => {
+const addCommentToTicket = require('./addCommentToTicket');
+
+module.exports = async ({context}) => {
     const comment = context.payload.comment.body;
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const urls = comment.match(urlRegex);
@@ -13,5 +15,9 @@ module.exports = ({context}) => {
       jiraComment = `Render link: ${strippedLink}`;
     }
     if (!renderUrl) return null;
-    return jiraComment;
+    await addCommentToTicket({
+      ticketId,
+      jiraComment,
+    });
+    // return jiraComment;
   };
