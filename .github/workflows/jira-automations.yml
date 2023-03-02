@@ -35,16 +35,16 @@ jobs:
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
       # https://github.com/marketplace/actions/github-script 
-      - uses: actions/checkout@v3 
-      - uses: actions/github-script@v6
-        id: format
-        with:
-          script: |
-            const path = require('path');
+      # - uses: actions/checkout@v3 
+      # - uses: actions/github-script@v6
+      #   id: format
+      #   with:
+      #     script: |
+      #       const path = require('path');
             
-            return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}, 
-              context
-            });
-          result-encoding: string 
+      #       return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+      #         ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}, 
+      #         context
+      #       });
+      #     result-encoding: string 
 
