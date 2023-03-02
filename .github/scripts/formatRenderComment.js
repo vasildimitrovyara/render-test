@@ -17,10 +17,10 @@ module.exports = async ({ticketId, context}) => {
     if (!renderUrl) return null;
 
 
-    
-    // await addCommentToTicket({
-    //   ticketId,
-    //   jiraComment,
-    // });
-    // return jiraComment;
+
+    await addCommentToTicket({
+      ticketId: 'RT-1',
+      jiraComment,
+    });
+    return jiraComment;
   };
