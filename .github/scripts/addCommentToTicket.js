@@ -9,6 +9,8 @@ module.exports = async ({ ticketId, comment }) => {
       data: comment,
     };
 
+    
+
     console.log('Adding comment to Jira ticket', options);
     return await jiraService({ ...options });
   } catch (error) {
