@@ -19,6 +19,7 @@ module.exports = async ({ data = 'Dome text', path, method = 'POST' }) =>
       (res) => {
         let rawData = '';
 
+        
         res.setEncoding('utf8');
 
         res.on('data', (chunk) => {
