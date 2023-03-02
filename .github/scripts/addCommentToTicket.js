@@ -18,12 +18,12 @@ module.exports = async ({ comment }) => {
               },
               {
                 type: 'text',
-                text: renderLink,
+                text: comment,
                 marks: [
                   {
                     type: 'link',
                     attrs: {
-                      href: renderLink,
+                      href: comment,
                       title: 'OnRender Link',
                     },
                   },
@@ -38,8 +38,6 @@ module.exports = async ({ comment }) => {
       path,
       data: bodyData,
     };
-
-
 
     console.log('Adding comment to Jira ticket', options);
     return await jiraService({ ...options });
