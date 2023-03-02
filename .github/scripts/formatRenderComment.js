@@ -15,6 +15,9 @@ module.exports = async ({ticketId, context}) => {
       jiraComment = `Render link: ${strippedLink}`;
     }
     if (!renderUrl) return null;
+
+
+    
     // await addCommentToTicket({
     //   ticketId,
     //   jiraComment,
