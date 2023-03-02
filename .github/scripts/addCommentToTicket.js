@@ -18,12 +18,12 @@ module.exports = async ({ comment }) => {
               },
               {
                 type: 'text',
-                text: renderLink,
+                text: comment,
                 marks: [
                   {
                     type: 'link',
                     attrs: {
-                      href: renderLink,
+                      href: comment,
                       title: 'OnRender Link',
                     },
                   },
