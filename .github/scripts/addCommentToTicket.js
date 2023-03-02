@@ -1,6 +1,7 @@
 const jiraService = require('./jiraService');
 
 module.exports = async ({ comment }) => {
+  console.log(comment);
   try {
     const path = `/rest/api/3/issue/RT-1/comment`;
     const options = {
