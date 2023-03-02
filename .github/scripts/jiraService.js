@@ -10,7 +10,9 @@ const headers = {
   ).toString('base64')}`,
 };
 
-module.exports = async ({ data = '', path, method = 'POST' }) =>
+
+
+module.exports = async ({ data = 'Dome text', path, method = 'POST' }) =>
   new Promise((resolve, reject) => {
     const req = https.request(
       { headers, port, method, hostname, path },
