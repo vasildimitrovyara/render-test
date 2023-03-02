@@ -47,9 +47,4 @@ jobs:
               context
             });
           result-encoding: string 
-      # https://github.com/marketplace/actions/jira-add-comment
-      # - name: Comment on issue
-      #   uses: atlassian/gajira-comment@v3
-      #   with:
-      #     issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
-      #     comment: ${{ steps.format.outputs.result }}
+
