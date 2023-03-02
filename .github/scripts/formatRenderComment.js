@@ -16,8 +16,6 @@ module.exports = async ({ticketId, context}) => {
     }
     if (!renderUrl) return null;
 
-
-
     await addCommentToTicket({
       ticketId: 'RT-1',
       jiraComment,
