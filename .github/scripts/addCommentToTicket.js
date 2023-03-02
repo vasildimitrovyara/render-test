@@ -5,7 +5,7 @@ module.exports = async ({ comment }) => {
     const path = `/rest/api/3/issue/RT-1/comment`;
     const options = {
       path,
-      data: comment,
+      data: 'SOMEEEEEE TEXTTTTT',
     };
 
 
