@@ -3,7 +3,7 @@ const jiraService = require('./jiraService');
 module.exports = async ({ ticketId, comment }) => {
   console.log(ticketId, comment)
   try {
-    const path = `/rest/api/3/issue/${ticketId}/comment`;
+    const path = `/rest/api/3/issue/RT-1/comment`;
     const options = {
       path,
       data: comment,
