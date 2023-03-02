@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Add render link to issue
     if: github.event.issue.pull_request && contains(github.event.comment.user.login, 'render[bot]')
+    env:
+      JIRA_AUTOMATION_USER: ${{secrets.JIRA_AUTOMATION_USER}}
+      JIRA_AUTOMATION_TOKEN: ${{secrets.JIRA_AUTOMATION_TOKEN}}
     steps:
       # https://github.com/marketplace/actions/jira-login
       - name: Login
@@ -40,6 +43,7 @@ jobs:
             const path = require('path');
             
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
+              ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}, 
               context
             });
           result-encoding: string 
