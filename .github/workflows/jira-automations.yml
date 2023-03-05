@@ -43,7 +43,8 @@ jobs:
             const path = require('path');
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
               context,
-              ticketId: 'RT-1'
+              ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}
             });
-          result-encoding: string 
+          result-encoding: string
+          run: echo ${{ steps.getJiraKeys.outputs.jiraKeys }}
 
