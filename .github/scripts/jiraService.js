@@ -13,12 +13,12 @@ const headers = {
 module.exports = async ({ data = '', path, method = 'POST' }) =>
   new Promise((resolve, reject) => {
     const req = https.request({ 
-      headers,
-      port, 
-      method,
-      hostname,
-      path 
-    },
+        headers,
+        port, 
+        method,
+        hostname,
+        path 
+      },
       (res) => {
         let rawData = '';
 
@@ -41,12 +41,10 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
         });
       },
     );
-
     req.on('error', (e) => {
       console.error(e);
       reject(e);
     });
-
     req.write(data);
     req.end();
   });
