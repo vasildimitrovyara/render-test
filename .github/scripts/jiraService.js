@@ -10,6 +10,8 @@ const headers = {
   ).toString('base64')}`,
 };
 
+
+
 module.exports = async ({ data = '', path, method = 'POST' }) =>
   new Promise((resolve, reject) => {
     const req = https.request({ 
@@ -42,10 +44,10 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
         });
       },
     );
-    // req.on('error', (e) => {
-    //   console.error(e);
-    //   reject(e);
-    // });
+    req.on('error', (e) => {
+      console.error(e);
+      reject(e);
+    });
     req.write(JSON.stringify(data));
     req.end();
   });
