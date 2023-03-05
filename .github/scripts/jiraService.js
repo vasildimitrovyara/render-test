@@ -20,6 +20,9 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
         path 
       },
       (res) => {
+
+
+
         // let rawData = '';
 
         // res.setEncoding('utf8');
@@ -45,6 +48,6 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
     //   console.error(e);
     //   reject(e);
     // });
-    req.write(data);
+    req.write(JSON.stringify(data));
     req.end();
   });
