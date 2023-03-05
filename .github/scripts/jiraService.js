@@ -21,8 +21,6 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
       },
       (res) => {
 
-
-
         let rawData = '';
 
         res.setEncoding('utf8');
