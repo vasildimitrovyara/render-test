@@ -21,6 +21,9 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
         console.log(res)
 
 
+
+        
+
         // res.setEncoding('utf8');
 
         // res.on('data', (chunk) => {
