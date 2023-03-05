@@ -2,8 +2,10 @@ const jiraService = require('./jiraService');
 
 module.exports = async ({ comment }) => {
   console.log(comment);
+  const issueId = 'RT-1';
+
   try {
-    const path = `/rest/api/3/issue/RT-1/comment`;
+    const path = `/rest/api/3/issue/${issueId}/comment`;
     const bodyData = {
       body: {
         type: 'doc',
