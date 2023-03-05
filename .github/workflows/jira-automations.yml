@@ -46,5 +46,4 @@ jobs:
               ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}
             });
           result-encoding: string
-          run: echo ${{ steps.getJiraKeys.outputs.jiraKeys }}
 
