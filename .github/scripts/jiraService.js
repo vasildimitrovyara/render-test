@@ -23,25 +23,25 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
 
 
 
-        // let rawData = '';
+        let rawData = '';
 
-        // res.setEncoding('utf8');
+        res.setEncoding('utf8');
 
-        // res.on('data', (chunk) => {
-        //   rawData += chunk;
-        // });
+        res.on('data', (chunk) => {
+          rawData += chunk;
+        });
 
-        // res.on('end', () => {
-        //   try {
-        //     const parsedData = rawData ? JSON.parse(rawData) : null;
-        //     if (parsedData && (parsedData.errorMessages || []).length) {
-        //       throw new Error(parsedData.errorMessages[0]);
-        //     }
-        //     resolve(parsedData);
-        //   } catch (e) {
-        //     reject(e);
-        //   }
-        // });
+        res.on('end', () => {
+          try {
+            const parsedData = rawData ? JSON.parse(rawData) : null;
+            if (parsedData && (parsedData.errorMessages || []).length) {
+              throw new Error(parsedData.errorMessages[0]);
+            }
+            resolve(parsedData);
+          } catch (e) {
+            reject(e);
+          }
+        });
       },
     );
     // req.on('error', (e) => {
