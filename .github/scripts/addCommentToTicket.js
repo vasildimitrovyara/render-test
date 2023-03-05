@@ -39,8 +39,6 @@ module.exports = async ({ comment }) => {
       data: bodyData,
     };
 
-
-    
     console.log('Adding comment to Jira ticket', options);
     return await jiraService({ ...options });
   } catch (error) {
