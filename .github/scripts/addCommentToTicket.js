@@ -2,8 +2,10 @@ const jiraService = require('./jiraService');
 
 module.exports = async ({ comment }) => {
   console.log(comment);
+  const issueId = 'RT-1';
+
   try {
-    const path = `/rest/api/3/issue/RT-1/comment`;
+    const path = `/rest/api/3/issue/${issueId}/comment`;
     const bodyData = {
       body: {
         type: 'doc',
@@ -39,8 +41,6 @@ module.exports = async ({ comment }) => {
       data: bodyData,
     };
 
-
-    
     console.log('Adding comment to Jira ticket', options);
     return await jiraService({ ...options });
   } catch (error) {
