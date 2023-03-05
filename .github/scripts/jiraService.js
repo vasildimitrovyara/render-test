@@ -22,7 +22,7 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
 
 
 
-        
+
 
         // res.setEncoding('utf8');
 
@@ -45,11 +45,11 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
       },
     );
 
-    req.on('error', (e) => {
-      console.error(e);
-      reject(e);
-    });
+    // req.on('error', (e) => {
+    //   console.error(e);
+    //   reject(e);
+    // });
 
-    req.write(data);
-    req.end();
+    // req.write(data);
+    // req.end();
   });
