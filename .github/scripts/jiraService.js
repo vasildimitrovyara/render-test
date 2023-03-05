@@ -20,10 +20,6 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
         let rawData = '';
         console.log(res)
 
-
-
-
-
         // res.setEncoding('utf8');
 
         // res.on('data', (chunk) => {
