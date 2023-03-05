@@ -1,7 +1,7 @@
 const https = require('https');
 
 const port = 443;
-const hostname = 'yaradigitalfarming.atlassian.net';
+const hostname = 'virge.atlassian.net';
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
