@@ -18,6 +18,7 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
       { headers, port, method, hostname, path },
       (res) => {
         let rawData = '';
+        console.log(res)
 
 
         res.setEncoding('utf8');
@@ -29,6 +30,7 @@ module.exports = async ({ data = '', path = '', method = 'POST' }) =>
         res.on('end', () => {
           try {
             const parsedData = rawData ? JSON.parse(rawData) : null;
+
             if (parsedData && (parsedData.errorMessages || []).length) {
               throw new Error(parsedData.errorMessages[0]);
             }

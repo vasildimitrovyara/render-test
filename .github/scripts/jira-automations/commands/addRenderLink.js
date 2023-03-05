@@ -51,7 +51,7 @@ const addRenderLinkCommentToTicket = async ({ renderLink, ticketId }) => {
     },
   };
   console.log(bodyData)
-
+     
   await addCommentToTicket({
     ticketId,
     bodyData,
