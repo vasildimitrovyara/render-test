@@ -18,6 +18,3 @@ module.exports = async ({path, data}) => {
       body: data,
     })
 }
-
-
-
