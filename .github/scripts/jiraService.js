@@ -1,7 +1,7 @@
 const https = require('https');
 
 const port = 443;
-const hostname = 'yaradigitalfarming.atlassian.net';
+const hostname = 'virge.atlassian.net';
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
@@ -20,8 +20,6 @@ module.exports = async ({ data = '', path, method = 'POST' }) =>
         path 
       },
       (res) => {
-
-
 
         let rawData = '';
 
