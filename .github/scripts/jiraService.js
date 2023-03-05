@@ -1,7 +1,4 @@
-// const https = require('https');
-// const axios = require('axios');
-
-const fetch = require('node-fetch')
+// const fetch = require('node-fetch')
 
 const port = 443;
 const hostname = 'yaradigitalfarming.atlassian.net';
