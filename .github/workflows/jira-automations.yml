@@ -1,4 +1,4 @@
-name: Jira Automations
+name: Add Render link to jira issue
 
 on:
   issue_comment:
@@ -15,34 +15,39 @@ on:
       ]
 
 jobs:
-  build:
+  add-render-link-to-issue:
     runs-on: ubuntu-latest
     name: Add render link to issue
     if: github.event.issue.pull_request && contains(github.event.comment.user.login, 'render[bot]')
-    env:
-      JIRA_AUTOMATION_USER: ${{secrets.JIRA_AUTOMATION_USER}}
-      JIRA_AUTOMATION_TOKEN: ${{secrets.JIRA_AUTOMATION_TOKEN}}
     steps:
       # https://github.com/marketplace/actions/jira-login
-      # - name: Login
-      #   uses: atlassian/gajira-login@v3
-      #   env:
-      #     JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-      #     JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-      #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+      - name: Login
+        uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.FULL_TOKEN }}
       # https://github.com/ejnkr/get-jira-keys-from-pr
       - name: Get Jira keys
         id: getJiraKeys
         uses: ejnkr/get-jira-keys-from-pr@main
-      # https://github.com/marketplace/actions/github-script 
-      - uses: actions/checkout@v3 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # https://github.com/marketplace/actions/github-script
+      - uses: actions/checkout@v3
       - uses: actions/github-script@v6
         id: format
         with:
           script: |
             const path = require('path');
+
             return require(path.resolve('.github/scripts/formatRenderComment.js'))({
-              context,
-              ticketId: ${{ steps.getJiraKeys.outputs.jiraKeys }}
+              context
             });
-          result-encoding: string 
+          result-encoding: string
+      # https://github.com/marketplace/actions/jira-add-comment
+      - name: Comment on issue
+        uses: atlassian/gajira-comment@v3
+        with:
+          issue: ${{ steps.getJiraKeys.outputs.jiraKeys }}
+          comment: ${{ steps.format.outputs.result }}
