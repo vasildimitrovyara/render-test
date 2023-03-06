@@ -16,6 +16,3 @@ module.exports = ({context}) => {
   if (!renderUrl) return null;
   return jiraComment;
 };
-
-
-
