@@ -1,24 +1,18 @@
-const addCommentToTicket = require('./addCommentToTicket');
+module.exports = ({context}) => {
+  const comment = context.payload.comment.body;
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const urls = comment.match(urlRegex);
+  const hasMatchingUrls = urls && urls.length;
+  const renderUrl = urls?.find((url) => url?.includes('onrender.com'));
+  let jiraComment = '';
 
-module.exports = async ({context, ticketId}) => {
-    const comment = context.payload.comment.body;
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const urls = comment.match(urlRegex);
-    const hasMatchingUrls = urls && urls.length;
-    const renderUrl = urls?.find((url) => url?.includes('onrender.com'));
-    let jiraComment = '';
 
-    if (!hasMatchingUrls) return null;
-    if (renderUrl) {
-      const strippedLink = renderUrl.replace(`-pr-${context.issue.number}`,'');
-      
-      jiraComment = `Render link: ${strippedLink}`;
-    }
-    if (!renderUrl) return null;
+  if (!hasMatchingUrls) return null;
+  if (renderUrl) {
+    const strippedLink = renderUrl.replace(`-pr-${context.issue.number}`,'');
 
-    await addCommentToTicket({
-      ticketId,
-      comment: jiraComment,
-    });
-    return jiraComment;
-  };
+    jiraComment = `Render link: ${strippedLink}`;
+  }
+  if (!renderUrl) return null;
+  return jiraComment;
+};
